@@ -1,5 +1,7 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
+const url = process.env.DATABASE_URL;
+
 export class createOrphanages1602815441057 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -18,18 +20,28 @@ export class createOrphanages1602815441057 implements MigrationInterface {
                     name: 'name',
                     type: 'varchar',
                 },
-                {
-                    name: 'latitude',
-                    type: 'decimal',
-                    scale: 10,
-                    precision: 2,
-                },
-                {
-                    name: 'longitude',
-                    type: 'decimal',
-                    scale: 10,
-                    precision: 2,
-                },
+                url
+                    ? {
+                        name: 'latitude',
+                        type: 'varchar',
+                    }
+                    : {
+                        name: 'latitude',
+                        type: 'decimal',
+                        scale: 10,
+                        precision: 2,
+                    },
+                url
+                    ? {
+                        name: 'longitude',
+                        type: 'varchar',
+                    }
+                    : {
+                        name: 'longitude',
+                        type: 'decimal',
+                        scale: 10,
+                        precision: 2,
+                    },
                 {
                     name: 'about',
                     type: 'text',
